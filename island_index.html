@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رحلة جزيرة التواصل</title>
+<style>
+:root{--bg:#eaf4fb;--card:#fff;--tx:#042c53;--mu:#185fa5;--ac:#185fa5;--ac2:#e6f1fb;--bd:#b5d4f4;--ok:#1d9e75;--okb:#e1f5ee;--no:#e24b4a;--nob:#fcebeb;--gold:#fac775;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1b2b;--card:#182638;--tx:#e6f1fb;--mu:#85b7eb;--ac:#378add;--ac2:#1f3550;--bd:#2f4a6b;--okb:#12392f;--nob:#3d1d1d}}
+:root[data-theme="dark"]{--bg:#0f1b2b;--card:#182638;--tx:#e6f1fb;--mu:#85b7eb;--ac:#378add;--ac2:#1f3550;--bd:#2f4a6b;--okb:#12392f;--nob:#3d1d1d}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font-family:Tahoma,Arial,sans-serif;min-height:100vh;display:flex;justify-content:center}
+.app{width:100%;max-width:560px;padding:16px}
+h1{font-size:22px;text-align:center;margin:6px 0 10px;color:var(--ac)}
+.path{display:flex;align-items:center;justify-content:space-between;margin:22px 8px 6px;position:relative}
+.path:before{content:"";position:absolute;right:20px;left:20px;top:50%;height:4px;background:var(--bd);transform:translateY(-50%)}
+.nd{position:relative;z-index:1;width:42px;height:42px;border-radius:50%;background:var(--card);border:3px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:20px;filter:grayscale(1);opacity:.7}
+.nd.on{border-color:var(--ac);filter:none;opacity:1}
+.nd.cur{background:var(--gold);transform:scale(1.15)}
+.nd.cur:after{content:"⛵";position:absolute;top:-24px;font-size:20px}
+.lb{display:flex;justify-content:space-between;font-size:11px;color:var(--mu);margin:0 0 10px;text-align:center}
+.lb span{width:50px}
+.bar{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px;color:var(--mu)}
+.pr{height:10px;background:var(--ac2);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.pr i{display:block;height:100%;width:0;background:var(--ac);transition:width .3s}
+.card{background:var(--card);border:2px solid var(--bd);border-radius:18px;padding:16px}
+.q{font-size:18px;line-height:1.7;font-weight:bold;margin:0 0 12px}
+.hint{font-size:14px;color:var(--mu);margin:0 0 10px;line-height:1.6}
+.o{display:block;width:100%;text-align:right;min-height:48px;margin:8px 0;padding:10px 14px;font:inherit;font-size:16px;color:var(--tx);background:var(--ac2);border:2px solid var(--bd);border-radius:12px;cursor:pointer}
+.o.ok{background:var(--okb);border-color:var(--ok)}
+.o.no{background:var(--nob);border-color:var(--no)}
+.cols{display:grid;grid-template-columns:92px 1fr;gap:12px}
+.cols h4{margin:0 0 8px;font-size:13px;color:var(--mu);text-align:center}
+.tile{width:80px;height:80px;margin:0 auto 10px;border-radius:16px;background:var(--card);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.tile svg{width:58px;height:58px;pointer-events:none}
+.tile.sel{border-color:var(--ac);box-shadow:0 0 0 3px var(--bd)}
+.tile.lift{opacity:.35}
+.ghost{position:fixed;pointer-events:none;z-index:99;transform:scale(1.12);box-shadow:0 6px 16px rgba(0,0,0,.3);background:var(--card);border-radius:16px}
+.slot{min-height:80px;margin-bottom:10px;padding:8px 12px;border:2px dashed var(--bd);border-radius:16px;background:var(--ac2);display:flex;align-items:center;gap:10px;font-size:16px;line-height:1.5}
+.slot.ok{border-style:solid;border-color:var(--ok);background:var(--okb)}
+.slot svg{width:46px;height:46px;flex:none}
+.slot small{display:block;color:var(--ok);font-size:13px}
+.slot.bad{animation:sh .35s;border-color:var(--no)}
+@keyframes sh{25%{transform:translateX(7px)}75%{transform:translateX(-7px)}}
+.pf{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.av{width:54px;height:54px;border-radius:50%;background:var(--ac2);border:2px solid var(--ac);display:flex;align-items:center;justify-content:center;font-size:26px}
+.ta{width:100%;min-height:130px;font:inherit;font-size:16px;line-height:1.7;padding:10px 12px;border-radius:12px;border:2px solid var(--bd);background:var(--ac2);color:var(--tx);resize:vertical}
+.ex{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--ac2);font-size:15px;line-height:1.7}
+.go{display:block;width:100%;min-height:50px;margin-top:12px;font:inherit;font-size:17px;font-weight:bold;color:#fff;background:var(--ac);border:0;border-radius:12px;cursor:pointer}
+.big{font-size:72px;text-align:center;margin:6px 0}
+.sc{font-size:34px;font-weight:bold;text-align:center;color:var(--ac)}
+.msg{text-align:center;font-size:17px;line-height:1.7;margin:8px 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+<h1>🏝️ رحلة جزيرة التواصل</h1>
+<div class="path" id="path"><div class="nd">🏝️</div><div class="nd">🔗</div><div class="nd">🕵️</div><div class="nd">✍️</div><div class="nd">🏆</div></div>
+<div class="lb"><span>البداية</span><span>الشعارات</span><span>المحقّق</span><span>إجابتك</span><span>الكأس</span></div>
+<div id="play">
+<div class="bar"><span id="n"></span><span id="s"></span></div>
+<div class="pr"><i id="p"></i></div>
+<div class="card"><div id="body"></div><div class="ex" id="ex" hidden></div><button class="go" id="nx" hidden></button></div>
+</div>
+<div id="end" class="card" hidden>
+<div class="big">🏆</div><div class="sc" id="sc"></div><div class="msg" id="ms"></div>
+<button class="go" id="again">ابدأ الرحلة من جديد</button>
+</div>
+</div>
+<script>
+const I={
+fb:'<svg viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#1877f2"/><text x="28" y="44" font-size="42" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial">f</text></svg>',
+li:'<svg viewBox="0 0 48 48"><rect width="48" height="48" rx="9" fill="#0a66c2"/><text x="24" y="34" font-size="26" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial">in</text></svg>',
+tw:'<svg viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#1d9bf0"/><g fill="#fff"><ellipse cx="23" cy="28" rx="13" ry="9" transform="rotate(-18 23 28)"/><circle cx="33" cy="18" r="7.5"/><path d="M39.5 16.5L47 19.5L39.5 22.5Z"/><path d="M12 33L4 38L15 37.5Z"/><path d="M14 36L8 43L19 38Z"/></g><circle cx="34.5" cy="17" r="1.7" fill="#1d9bf0"/><path d="M14 27c4 3 9 3 13 0" stroke="#1d9bf0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+yt:'<svg viewBox="0 0 48 48"><rect x="2" y="9" width="44" height="30" rx="9" fill="#f00"/><path d="M20 17l11 7-11 7z" fill="#fff"/></svg>',
+ig:'<svg viewBox="0 0 48 48"><defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".45" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect width="48" height="48" rx="13" fill="url(#g)"/><rect x="11" y="11" width="26" height="26" rx="8" fill="none" stroke="#fff" stroke-width="3"/><circle cx="24" cy="24" r="6" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="16" r="2" fill="#fff"/></svg>',
+sn:'<svg viewBox="0 0 48 48"><rect width="48" height="48" rx="11" fill="#fffc00"/><path d="M24 9c-6 0-9 5-9 10v5c-2 1-4 1-5 2 1 1 3 2 5 2 0 2-2 3-4 4 3 2 6 1 8 2 2 2 3 3 5 3s3-1 5-3c2-1 5 0 8-2-2-1-4-2-4-4 2 0 4-1 5-2-1-1-3-1-5-2v-5c0-5-3-10-9-10z" fill="#fff" stroke="#222" stroke-width="2" stroke-linejoin="round"/></svg>'};
+const N={fb:"فيسبوك",li:"لينكد إن",tw:"تويتر",yt:"يوتيوب",ig:"إنستغرام",sn:"سناب شات"};
+const A=[["fb","Post"],["li","مجتمع الأعمال"],["tw","Tweet"],["yt","Videos"],["ig","مشاركة الفيديوهات السريعة Reels"],["sn","مشاركة الصور والفيديو من خلال لقطات"]];
+const P=[
+["📷 صورة الحساب بالزي المدرسي واسم المدرسة ظاهر",1,"تكشف مدرستك لأي شخص. الأفضل صورة لا تُظهر المدرسة."],
+["🎂 الاسم الكامل مع تاريخ الميلاد",1,"يكفي اسم أول أو لقب، وتاريخ الميلاد لا يُنشر."],
+["📞 رقم الهاتف ظاهر للجميع",1,"لا تنشر رقم هاتفك أبدًا في حساب عام."],
+["🔑 كلمة المرور مكتوبة في الملف الشخصي: 123456",1,"كلمة المرور سرّ لا يعرفه إلا أنت وأهلك، ويجب أن تكون قوية."],
+["🏠 العنوان: حي الزهور، بجانب المخبز، عمارة 5",1,"العنوان يسمح لغريب بمعرفة مكانك."],
+["✈️ منشور: «غدًا نسافر أسبوعًا وبيتنا فارغ!»",1,"لا تعلن سفرك، فهذا يخبر الجميع أن البيت فارغ."],
+["🎨 هوايتي: الرسم والقراءة",0,"هذه معلومة آمنة، فلا بأس بها."],
+["💙 لوني المفضل: الأزرق",0,"هذه معلومة آمنة أيضًا."]];
+const S=[
+["وصلتك رسالة من حساب لا تعرفه: «أنا صديق أخيك، أرسل لي صورتك وعنوانك».",["أتجاهله وأحظر الحساب وأخبر أهلي","أرسل الصورة والعنوان","أرد عليه وأسأله من هو"],"لا نرد على الغرباء، بل نحظر الحساب ونخبر شخصًا بالغًا."],
+["نشر صديقك صورة محرجة لزميلكما، وبدأ الجميع بالضحك عليها.",["لا أشارك وأخبر شخصًا بالغًا","أضع إعجابًا وتعليقًا ضاحكًا","أعيد نشر الصورة"],"المشاركة أو الإعجاب يزيدان الأذى، فنبلّغ ونطلب حذف الصورة."],
+["وصلك خبر «عاجل»: المدارس ستُغلق شهرًا! شاركه مع الجميع.",["أتأكد من مصدر رسمي قبل المشاركة","أشاركه فورًا مع الجميع","أرسله لأصدقائي فقط"],"قد يكون الخبر كاذبًا، لذلك نتأكد من المصدر قبل أن ننشر."],
+["لعبة تطلب كلمة مرور بريدك الإلكتروني لتمنحك مجوهرات مجانية.",["أرفض وأخبر أهلي","أعطيها كلمة المرور","أعطيها كلمة مرور شبيهة"],"لا نعطي كلمة المرور لأحد، والعروض المجانية قد تكون خدعة."],
+["وصلك طلب صداقة من شخص لا تعرفه في الحقيقة، ويقول إنه في عمرك.",["أرفض الطلب وأخبر أهلي","أقبله لأنه لطيف","أقبله وأحدثه عن مدرستي"],"قد لا يكون الشخص صادقًا، فنقبل المعارف فقط."]];
+const $=id=>document.getElementById(id);
+const sh=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+const TOT=1+6+6+S.length+1;
+let sc,pg,found,i,lock,sel;
+function cur(c){[...$("path").children].forEach((d,k)=>{d.className="nd"+(k<=c?" on":"")+(k==c?" cur":"")})}
+function head(t){$("n").textContent=t;$("s").textContent="النقاط: "+sc;$("p").style.width=(pg/TOT*100)+"%";$("ex").hidden=true;$("nx").hidden=true}
+function upd(t){$("n").textContent=t;$("s").textContent="النقاط: "+sc;$("p").style.width=(pg/TOT*100)+"%"}
+function start(){lock0=false;sc=0;pg=0;found=0;sel=null;$("end").hidden=true;$("play").hidden=false;stage0()}
+function stage0(){
+ cur(0);head("البداية");
+ const b=$("body");b.innerHTML='<p class="q" style="color:var(--ac);font-size:21px">🤔 فكّر قبل أن تختار</p><p class="q">لماذا تظهر لنا إعلانات عن منتجات بحثنا عنها سابقًا؟</p>';
+ sh(["لأن بعض المنصات تستخدم بيانات واهتمامات المستخدم لتخصيص الإعلانات.","لأن الهاتف يلتقط صور المنتجات تلقائيًا.","لأن جميع الإعلانات تظهر بالطريقة نفسها لكل المستخدمين."].map((t,k)=>[t,k])).forEach(([t,k])=>{const o=document.createElement("button");o.className="o";o.textContent=t;o.onclick=()=>pick0(o,k);b.appendChild(o)});
+}
+function pick0(o,k){
+ if(lock0)return;lock0=true;const good=k==0;
+ document.querySelectorAll(".o").forEach(x=>{if(x.textContent.startsWith("لأن بعض"))x.classList.add("ok")});
+ if(good)sc++;else o.classList.add("no");pg++;upd("البداية");
+ $("ex").textContent=(good?"أحسنت! ✅ ":"ليست هذه الإجابة ❌ ")+"المنصات تجمع بيانات بحثنا واهتماماتنا لتعرض لنا إعلانات تناسبنا، ولذلك ننتبه لما نشاركه ونبحث عنه.";$("ex").hidden=false;
+ const nx=$("nx");nx.textContent="ابدأ الرحلة: طابق الشعارات 🔗";nx.hidden=false;nx.onclick=stageA;
+}
+function writeStage(){
+ cur(3);head("المرحلة الأخيرة: اكتب إجابتك");
+ $("body").innerHTML='<p class="q" style="color:var(--ac)">✍️ اكتب الإجابة على حسب فهمك</p><p class="q">ما معنى العبارة التالية: «إذا لم تدفع ثمن المنتج، فقد تكون أنت المنتج»؟</p><textarea class="ta" id="ta" placeholder="اكتب إجابتك هنا..."></textarea><button class="go" id="sb">تسليم الإجابة</button>';
+ $("sb").onclick=()=>{
+  const v=$("ta").value.trim();
+  if(v.length<15){$("ex").textContent="اكتب إجابة أطول قليلًا (جملتان على الأقل) 🙂";$("ex").hidden=false;return}
+  $("ta").readOnly=true;$("sb").hidden=true;sc++;pg++;upd("المرحلة الأخيرة: اكتب إجابتك");
+  $("ex").textContent="أحسنت! 👏 قارن إجابتك بهذا المعنى: التطبيقات والمواقع المجانية تربح من بياناتنا واهتماماتنا ووقتنا، فتعرض لنا إعلانات أو تستخدم معلوماتنا. أي أننا ندفع بمعلوماتنا بدل المال.";$("ex").hidden=false;
+  const nx=$("nx");nx.textContent="اذهب إلى الكأس 🏆";nx.hidden=false;nx.onclick=finish;
+ };
+}
+let lock0=false;
+function stageA(){
+ cur(1);found=0;head("المرحلة 1: طابق الشعار (0 من 6)");
+ $("body").innerHTML='<p class="hint">اسحب الشعار إلى العلامة المميزة التي تعبّر عنه (أو اضغط الشعار ثم اضغط الخانة).</p><div class="cols"><div><h4>الشعار</h4><div id="tl"></div></div><div><h4>العلامة المميزة</h4><div id="sl"></div></div></div>';
+ sh(A.map(x=>x[0])).forEach(k=>{const t=document.createElement("div");t.className="tile";t.innerHTML=I[k];t.dataset.k=k;t.onpointerdown=e=>down(e,t);$("tl").appendChild(t)});
+ sh(A).forEach(([k,t])=>{const s=document.createElement("div");s.className="slot";s.dataset.k=k;s.innerHTML='<span dir="auto">'+t+'</span>';s.onclick=()=>{if(sel)drop(sel,s)};$("sl").appendChild(s)});
+}
+function down(e,t){
+ e.preventDefault();const r=t.getBoundingClientRect();const g=t.cloneNode(true);g.className="tile ghost";g.style.width=r.width+"px";g.style.height=r.height+"px";document.body.appendChild(g);t.classList.add("lift");let moved=false;
+ const pos=ev=>{g.style.left=(ev.clientX-r.width/2)+"px";g.style.top=(ev.clientY-r.height/2)+"px"};pos(e);
+ const mv=ev=>{moved=true;pos(ev)};
+ const up=ev=>{document.removeEventListener("pointermove",mv);document.removeEventListener("pointerup",up);g.remove();t.classList.remove("lift");
+  if(!moved){const was=sel===t;if(sel)sel.classList.remove("sel");sel=was?null:t;if(sel)sel.classList.add("sel")}
+  else{const el=document.elementFromPoint(ev.clientX,ev.clientY);const s=el&&el.closest(".slot");if(s)drop(t,s)}};
+ document.addEventListener("pointermove",mv);document.addEventListener("pointerup",up);
+}
+function drop(t,s){
+ if(s.classList.contains("ok"))return;const ex=$("ex");
+ if(t.dataset.k===s.dataset.k){
+  s.classList.add("ok");const k=t.dataset.k;s.innerHTML=I[k]+'<span dir="auto">'+s.textContent+'<small>'+N[k]+' ✅</small></span>';
+  t.remove();sel=null;found++;sc++;pg++;upd("المرحلة 1: طابق الشعار ("+found+" من 6)");ex.textContent="أحسنت! هذا هو "+N[k]+".";ex.hidden=false;
+  if(found==6){const nx=$("nx");nx.textContent="وصلت إلى جزيرة المحقّق 🏝️";nx.hidden=false;nx.onclick=stageB}
+ }else{s.classList.add("bad");setTimeout(()=>s.classList.remove("bad"),400);ex.textContent="ليس هنا، حاول مرة أخرى 🙂";ex.hidden=false}
+}
+function stageB(){
+ cur(2);found=0;head("المرحلة 2: اكتشف الأخطاء (0 من 6)");
+ const b=$("body");
+ b.innerHTML='<div class="pf"><div class="av">🧑</div><div><b>ليث أحمد</b><div class="hint" style="margin:0">اضغط على المعلومات الخطرة في هذا الحساب (6 أخطاء)</div></div></div>';
+ sh(P).forEach(d=>{const o=document.createElement("button");o.className="o";o.textContent=d[0];o.onclick=()=>tap(o,d);b.appendChild(o)});
+}
+function tap(o,d){
+ if(o.classList.contains("ok")||o.classList.contains("no"))return;const ex=$("ex");
+ if(d[1]){o.classList.add("ok");found++;sc++;pg++;ex.textContent="أحسنت ✅ "+d[2]}else{o.classList.add("no");ex.textContent="🙂 "+d[2]}
+ ex.hidden=false;upd("المرحلة 2: اكتشف الأخطاء ("+found+" من 6)");
+ if(found==6){const nx=$("nx");nx.textContent="أسئلة: ماذا تفعل؟";nx.hidden=false;nx.onclick=()=>{i=0;ques()}}
+}
+function ques(){
+ lock=false;const d=S[i];head("ماذا تفعل؟ السؤال "+(i+1)+" من "+S.length);
+ const b=$("body");b.innerHTML='<p class="q">'+d[0]+'</p>';
+ sh(d[1]).forEach(t=>{const o=document.createElement("button");o.className="o";o.textContent=t;o.onclick=()=>pick(o,t);b.appendChild(o)});
+}
+function pick(o,t){
+ if(lock)return;lock=true;const d=S[i];const good=t===d[1][0];
+ document.querySelectorAll(".o").forEach(x=>{if(x.textContent===d[1][0])x.classList.add("ok")});
+ if(good)sc++;else o.classList.add("no");pg++;upd("ماذا تفعل؟ السؤال "+(i+1)+" من "+S.length);
+ $("ex").textContent=(good?"أحسنت! ✅ ":"ليست هذه الإجابة ❌ ")+d[2];$("ex").hidden=false;
+ const nx=$("nx");nx.textContent=i==S.length-1?"المرحلة الأخيرة: اكتب إجابتك ✍️":"السؤال التالي";nx.hidden=false;
+ nx.onclick=()=>{i++;i<S.length?ques():writeStage()};
+}
+function finish(){
+ cur(4);$("play").hidden=true;$("end").hidden=false;$("sc").textContent=sc+" / "+TOT;
+ const r=sc/TOT;
+ $("ms").textContent=(r==1?"مبروك! وصلت إلى الكأس بدرجة كاملة، أنت محقّق رقمي بارع!":r>=.75?"مبروك! وصلت إلى الكأس وأنت تحمي نفسك جيدًا.":r>=.5?"وصلت إلى الكأس! راجع قواعد الأمان وأعد الرحلة لتحصل على درجة أعلى.":"وصلت إلى الكأس! أعد الرحلة وتذكّر: لا تشارك معلوماتك الخاصة.");
+}
+$("again").onclick=start;
+start();
+</script>
+</body>
+</html>
